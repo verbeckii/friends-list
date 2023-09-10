@@ -2,12 +2,15 @@
 import styles from './app.module.scss';
 import { AppRoutes } from './routers/routers.js';
 import { Provider as ReduxProvider } from 'react-redux';
-import { store } from './stores';
+import { persistor, store } from './stores';
+import { PersistGate } from 'redux-persist/integration/react';
 
 export function App() {
   return (
     <ReduxProvider store={store}>
-      <AppRoutes />;
+      <PersistGate loading={<div>loading store...</div>} persistor={persistor}>
+        <AppRoutes />;
+      </PersistGate>
     </ReduxProvider>
   );
 }
